@@ -150,7 +150,7 @@ EApiStorageAreaReadEmul(
                 "Read Len extends beyond End of Storage Area"
                 );
 
-    StatusCode = EApiI2CReadTransfer(eeprom_bus,EEPROM_DEVICE,EAPI_I2C_ENC_EXT_CMD(userspaceBuffer_Cmd+6+Offset), pvBuffer,ByteCnt,ByteCnt);
+    StatusCode = EApiI2CReadTransfer(eeprom_bus,EEPROM_DEVICE<<1,EAPI_I2C_ENC_EXT_CMD(userspaceBuffer_Cmd+6+Offset), pvBuffer,ByteCnt,ByteCnt);
     if(!EAPI_TEST_SUCCESS(StatusCode))
         EAPI_LIB_RETURN_ERROR(
                     EApiStorageAreaReadEmul        ,
@@ -232,7 +232,7 @@ EApiStorageAreaWriteEmul(
     new_Offset = userspaceBuffer_Cmd + 6 + Offset;
     while(iWrite < ByteCnt)
     {
-        StatusCode = EApiI2CWriteTransfer(eeprom_bus,EEPROM_DEVICE,EAPI_I2C_ENC_EXT_CMD(new_Offset), &pvBuffer[iWrite],1);
+        StatusCode = EApiI2CWriteTransfer(eeprom_bus,EEPROM_DEVICE<<1,EAPI_I2C_ENC_EXT_CMD(new_Offset), &pvBuffer[iWrite],1);
         if(!EAPI_TEST_SUCCESS(StatusCode))
             EAPI_LIB_RETURN_ERROR(
                         EApiStorageAreaWriteEmul        ,
